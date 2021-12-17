@@ -2,11 +2,11 @@
 kubernetes_sha: "286709307da5adb62e78d989b7ed846355d5c88e"
 # this is the compatbility version, determining args we send to antrea and so on
 kubernetes_compatibility:  "1.21.2"
-overwrite_windows_bins: "false"
+overwrite_windows_bins: true
 
 kubelet_path:  "./sync/windows/bin/kubelet.exe"
 kubeproxy_path:  "./sync/windows/bin/kube-proxy.exe"
-windows_node_ip: "10.20.30.11"
+windows_node_ip: "192.168.56.11"
 
 # LINUX KUBELET VERSION
 # LINUX KUBEADM VERSION
@@ -14,8 +14,8 @@ windows_node_ip: "10.20.30.11"
 # from https://apt.kubernetes.io/
 k8s_linux_registry: "gcr.io/k8s-staging-ci-images"
 k8s_linux_kubelet_deb:  "1.21.0"
-k8s_linux_apiserver: "ci/v1.22.0-alpha.3.31+a3abd06ad53b2f"
-k8s_linux_kubelet_nodeip: "10.20.30.10"
+k8s_linux_apiserver: "ci/latest"
+k8s_linux_kubelet_nodeip: "192.168.56.10"
 
 # WINDOWS KUBELET VERSION
 # This is the -KubernetesVersion sent to
@@ -29,7 +29,7 @@ k8s_linux_kubelet_nodeip: "10.20.30.10"
 ### THIS WILL OVERWRITE THE KUBEADM and KUBELET with LOCAL SOURCE
 # TODO make these explicit about what they are overwriting
 # Seperate kubelet from kubeadm
-overwrite_linux_bins: false
+overwrite_linux_bins: true
 
 linux_ram: 4096
 linux_cpus: 4

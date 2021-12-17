@@ -121,15 +121,15 @@ sudo systemctl restart containerd
 # k8s.gcr.io/coredns:1.7.0
 # sudo ctr images tag k8s.gcr.io/etcd:3.4.13-0 k8s.gcr.io/etcd:v1.22.0-alpha.3.31_a3abd06ad53b2f
 # sudo kubeadm init --apiserver-advertise-address=10.20.30.10 --pod-network-cidr=10.244.0.0/16 --image-repository="k8s.gcr.io" --kubernetes-version="v1.22.0-alpha.3.31+a3abd06ad53b2f"
-sudo docker pull k8s.gcr.io/etcd:3.4.13-0
-sudo docker pull k8s.gcr.io/pause:3.4.1
-sudo docker pull k8s.gcr.io/coredns/coredns:v1.8.0
-sudo docker tag k8s.gcr.io/etcd:3.4.13-0 gcr.io/k8s-staging-ci-images/etcd:3.4.13-0
-sudo docker tag k8s.gcr.io/pause:3.4.1 gcr.io/k8s-staging-ci-images/pause:3.4.1
-sudo docker tag k8s.gcr.io/coredns/coredns:v1.8.0 gcr.io/k8s-staging-ci-images/coredns/coredns:v1.8.0
+sudo docker pull k8s.gcr.io/etcd:3.5.1-0
+sudo docker pull k8s.gcr.io/pause:3.6
+sudo docker pull k8s.gcr.io/coredns/coredns:v1.8.6
+sudo docker tag k8s.gcr.io/etcd:3.5.1-0 gcr.io/k8s-staging-ci-images/etcd:3.5.1-0
+sudo docker tag k8s.gcr.io/pause:3.6 gcr.io/k8s-staging-ci-images/pause:3.6
+sudo docker tag k8s.gcr.io/coredns/coredns:v1.8.6 gcr.io/k8s-staging-ci-images/coredns:v1.8.6
 
 cat << EOF > /var/sync/shared/kubeadm.yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: $k8s_kubelet_node_ip
@@ -138,7 +138,7 @@ nodeRegistration:
     node-ip: $k8s_kubelet_node_ip
     cgroup-driver: cgroupfs
 ---
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 kubernetesVersion: $k8s_linux_apiserver
 imageRepository: $k8s_linux_registry
@@ -162,6 +162,8 @@ cp $HOME/.kube/config /var/sync/shared/config
 rm -f /var/sync/shared/kubejoin.ps1
 
 cat << EOF > /var/sync/shared/kubejoin.ps1
+cp C:\Users\vagrant\crictl.exe "C:\Program Files\containerd"
+cp C:\sync\windows\bin\* c:\k
 \$env:path += ";C:\Program Files\containerd"
 [Environment]::SetEnvironmentVariable("Path", \$env:Path, [System.EnvironmentVariableTarget]::Machine)
 EOF
