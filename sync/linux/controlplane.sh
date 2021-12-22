@@ -131,6 +131,7 @@ nodeRegistration:
     node-ip: $k8s_kubelet_node_ip
     cgroup-driver: cgroupfs
     v: "3"
+    feature-gates: "NodeLogs=true"
 ---
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
